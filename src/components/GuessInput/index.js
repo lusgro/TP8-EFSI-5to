@@ -1,7 +1,7 @@
 import './GuessInput.css';
 import React, { useEffect, useRef } from 'react';
 
-const GuessInput = ({ guess, setGuess, countryName }) => {
+const GuessInput = ({ guess, setGuess, countryName, hintIndexs = [] }) => {
     const inputRefs = useRef([]);
 
     useEffect(() => {
@@ -11,6 +11,9 @@ const GuessInput = ({ guess, setGuess, countryName }) => {
     }, []);
 
     const handleChange = (index, value) => {
+        console.log(hintIndexs)
+        if (hintIndexs.includes(index)) return;
+
         const newGuess = [...guess];
         newGuess[index] = value.toUpperCase();
         setGuess(newGuess);
@@ -34,14 +37,14 @@ const GuessInput = ({ guess, setGuess, countryName }) => {
 
     const findNextInputIndex = (currentIndex) => {
         for (let i = currentIndex + 1; i < countryName.length; i++) {
-            if (countryName[i] !== ' ') return i;
+            if (countryName[i] !== ' ' && !hintIndexs.includes(i)) return i;
         }
         return -1;
     };
 
     const findPrevInputIndex = (currentIndex) => {
         for (let i = currentIndex - 1; i >= 0; i--) {
-            if (countryName[i] !== ' ') return i;
+            if (countryName[i] !== ' ' && !hintIndexs.includes(i)) return i;
         }
         return -1;
     };
@@ -60,7 +63,7 @@ const GuessInput = ({ guess, setGuess, countryName }) => {
                         value={guess[index] || ''}
                         onChange={(element) => handleChange(index, element.target.value)}
                         onKeyDown={(element) => handleKeyDown(index, element)}
-                        className={`input ${guess[index] ? 'filled' : ''}`}
+                        className={`input ${guess[index] ? 'filled' : ''} ${hintIndexs.includes(index) ? 'hint' : ''}`}
                     />
                 )
             ))}

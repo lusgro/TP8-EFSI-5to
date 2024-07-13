@@ -1,0 +1,15 @@
+.hintButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.hintButton:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}

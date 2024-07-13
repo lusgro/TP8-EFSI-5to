@@ -25,3 +25,9 @@
     width: 20px;
     height: 30px;
 }
+
+.input.hint {
+    background-color: #4caf50;
+    color: #000;
+    font-weight: bold;
+}

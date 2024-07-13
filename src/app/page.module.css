@@ -15,3 +15,9 @@
   justify-content: center;
   height: '100vh';
 }
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
