@@ -10,10 +10,13 @@ import GuessButton from "../components/GuessButton";
 import Points from "../components/Points";
 
 export default function Home() {
+  const PUNTOS_BASE = 10;
+  const PUNTOS_PENALIZACION = 1;
   const [response, setResponse] = useState(null);
   const [country, setCountry] = useState(null);
   const [guess, setGuess] = useState([]);
   const [points, setPoints] = useState(0);
+  const [timer, setTimer] = useState(15);
 
 
   useEffect(() => {
@@ -27,6 +30,15 @@ export default function Home() {
     const randomCountry = response.data.data[Math.floor(Math.random() * response.data.data.length)];
     setCountry(randomCountry);
     setGuess(Array(randomCountry.name.length).fill(''));
+    setTimer(15);
+    let interval = setInterval(() => {
+      setTimer(timer => {
+        if (timer > 0) return timer - 1;
+        clearInterval(interval);
+        return 0;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
   }, [response, points]);
 
 
@@ -36,11 +48,11 @@ export default function Home() {
     const countryNameWithoutSpaces = country.name.replace(/\s/g, '').toLowerCase();
   
     if (guessWithoutSpaces === countryNameWithoutSpaces) {
-      setPoints(points + 10);
-      alert('¡Adivinaste!');
+      setPoints(points + PUNTOS_BASE + timer);
+      alert(`¡Adivinaste! Ganaste ${PUNTOS_BASE + timer} puntos`);
     } else {
-      setPoints(points - 1);
-      alert('¡Fallaste!');
+      setPoints(points - PUNTOS_PENALIZACION);
+      alert('¡Fallaste! Perdiste 1 punto');
     }
   }
 
