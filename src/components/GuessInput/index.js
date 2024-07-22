@@ -11,7 +11,6 @@ const GuessInput = ({ guess, setGuess, countryName, hintIndexs = [] }) => {
     }, []);
 
     const handleChange = (index, value) => {
-        console.log(hintIndexs)
         if (hintIndexs.includes(index)) return;
 
         const newGuess = [...guess];

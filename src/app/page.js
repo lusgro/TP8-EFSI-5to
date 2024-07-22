@@ -57,10 +57,9 @@ export default function Home() {
   
     if (guessWithoutSpaces === countryNameWithoutSpaces) {
       setPoints(points + PUNTOS_BASE + timer - hintsUsed * PUNTOS_PENALIZACION_PISTA);
-      alert(`¡Adivinaste! Ganaste ${PUNTOS_BASE + timer} puntos`);
+      alert(`¡Adivinaste! Ganaste ${PUNTOS_BASE + timer - hintsUsed * PUNTOS_PENALIZACION_PISTA} puntos`);
     } else {
       setPoints(points - PUNTOS_PENALIZACION - hintsUsed * PUNTOS_PENALIZACION_PISTA);
-      console.log(hintsUsed)
       alert(`¡Fallaste! Perdiste ${Math.abs(PUNTOS_PENALIZACION + hintsUsed * PUNTOS_PENALIZACION_PISTA)} puntos`);
     }
   }
